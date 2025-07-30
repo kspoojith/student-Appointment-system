@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "college-appointment-system",
+		"name": "College Appointment System API",
+		"description": "Complete API collection for the College Appointment System. This collection includes all endpoints for user authentication, availability management, and appointment booking.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Student A1\",\n    \"email\": \"studenta1@college.edu\",\n    \"password\": \"password123\",\n    \"role\": \"student\",\n    \"studentId\": \"STU001\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Register Professor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Professor P1\",\n    \"email\": \"professorp1@college.edu\",\n    \"password\": \"password123\",\n    \"role\": \"professor\",\n    \"department\": \"Computer Science\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"studenta1@college.edu\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Professor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"professorp1@college.edu\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "me"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Professors",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/users/professors",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "professors"]
+						}
+					}
+				},
+				{
+					"name": "Get Professor by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/users/professors/{{professorId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "professors", "{{professorId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/profile",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Name\",\n    \"email\": \"updated@college.edu\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/profile",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "profile"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Availability",
+			"item": [
+				{
+					"name": "Create Availability Slot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{professorToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2024-01-15\",\n    \"startTime\": \"10:00\",\n    \"endTime\": \"11:00\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/availability",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "availability"]
+						}
+					}
+				},
+				{
+					"name": "Get Professor Availability",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/availability/professor/{{professorId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "availability", "professor", "{{professorId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get My Availability Slots",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{professorToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/availability/my-slots",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "availability", "my-slots"]
+						}
+					}
+				},
+				{
+					"name": "Delete Availability Slot",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{professorToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/availability/{{availabilityId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "availability", "{{availabilityId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Appointments",
+			"item": [
+				{
+					"name": "Book Appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"availabilityId\": \"{{availabilityId}}\",\n    \"reason\": \"Discussion about final project\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/appointments",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "appointments"]
+						}
+					}
+				},
+				{
+					"name": "Get My Appointments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/appointments/my-appointments",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "appointments", "my-appointments"]
+						}
+					}
+				},
+				{
+					"name": "Get Appointment by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/appointments/{{appointmentId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "appointments", "{{appointmentId}}"]
+						}
+					}
+				},
+				{
+					"name": "Cancel Appointment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/appointments/{{appointmentId}}/cancel",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "appointments", "{{appointmentId}}", "cancel"]
+						}
+					}
+				},
+				{
+					"name": "Complete Appointment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{professorToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/appointments/{{appointmentId}}/complete",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "appointments", "{{appointmentId}}", "complete"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["health"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "studentToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "professorToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "professorId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "availabilityId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "appointmentId",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 
